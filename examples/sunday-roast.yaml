@@ -1,0 +1,130 @@
+version: 1
+title: Sunday roast for four
+timezone: Europe/London
+
+resources:
+  cook:
+    capacity: 1
+    label: Cook attention
+  oven:
+    capacity: 2
+    label: Oven shelves
+  burner:
+    capacity: 2
+    label: Hob burners
+  counter:
+    capacity: 2
+    label: Counter spaces
+  blender:
+    capacity: 1
+    label: Stick blender
+
+defaults:
+  attentionResource: cook
+  horizonMinutes: 240
+
+dishes:
+  - id: roast-chicken
+    name: Lemon roast chicken
+    color: "#e76f51"
+    maxHold: 25
+    steps:
+      - id: season
+        name: Season and truss the chicken
+        duration: 12
+        mode: active
+        resources:
+          counter: 1
+        notes: Pat the skin dry before seasoning.
+      - id: sear
+        name: Brown the chicken
+        duration: 8
+        mode: active
+        resources:
+          burner: 1
+      - id: roast
+        name: Roast until cooked through
+        duration: 55
+        mode: passive
+        resources:
+          oven: 1
+      - id: rest
+        name: Rest under loose foil
+        duration: 15
+        mode: passive
+        resources:
+          counter: 1
+      - id: carve
+        name: Carve and plate
+        duration: 7
+        mode: active
+        resources:
+          counter: 1
+
+  - id: potatoes
+    name: Crisp roast potatoes
+    color: "#e9c46a"
+    maxHold: 20
+    steps:
+      - id: parboil
+        name: Parboil potatoes
+        duration: 12
+        mode: passive
+        resources:
+          burner: 1
+      - id: rough-up
+        name: Drain, rough up, and oil
+        duration: 6
+        mode: active
+        resources:
+          counter: 1
+      - id: roast
+        name: Roast until crisp
+        duration: 45
+        mode: passive
+        resources:
+          oven: 1
+
+  - id: greens
+    name: Garlicky greens
+    color: "#2a9d8f"
+    maxHold: 10
+    steps:
+      - id: prep
+        name: Wash and slice the greens
+        duration: 8
+        mode: active
+        resources:
+          counter: 1
+      - id: saute
+        name: Sauté with garlic
+        duration: 7
+        mode: active
+        resources:
+          burner: 1
+
+  - id: gravy
+    name: Pan gravy
+    color: "#9b5de5"
+    maxHold: 12
+    steps:
+      - id: deglaze
+        name: Deglaze the roasting pan
+        duration: 5
+        mode: active
+        resources:
+          burner: 1
+        after:
+          - roast-chicken.roast
+      - id: blend
+        name: Blend in the aromatics
+        duration: 3
+        mode: active
+        resources:
+          blender: 1
+      - id: simmer
+        name: Simmer and reduce
+        duration: 10
+        mode: passive
+        resources:
+          burner: 1

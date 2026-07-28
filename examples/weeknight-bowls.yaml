@@ -1,0 +1,101 @@
+version: 1
+title: Weeknight tofu bowls
+timezone: Asia/Tokyo
+
+resources:
+  cook:
+    capacity: 1
+    label: Cook attention
+  burner:
+    capacity: 2
+    label: Burners
+  rice-cooker:
+    capacity: 1
+    label: Rice cooker
+  counter:
+    capacity: 2
+    label: Counter spaces
+
+defaults:
+  attentionResource: cook
+  horizonMinutes: 120
+
+dishes:
+  - id: rice
+    name: Steamed rice
+    color: "#f4d35e"
+    maxHold: 20
+    steps:
+      - id: rinse
+        name: Rinse and measure rice
+        duration: 5
+        mode: active
+        resources:
+          counter: 1
+      - id: cook
+        name: Cook rice
+        duration: 35
+        mode: passive
+        resources:
+          rice-cooker: 1
+      - id: steam
+        name: Rest on warm
+        duration: 10
+        mode: passive
+        resources:
+          rice-cooker: 1
+
+  - id: tofu
+    name: Sesame tofu
+    color: "#ee964b"
+    maxHold: 12
+    steps:
+      - id: press
+        name: Press and cube tofu
+        duration: 8
+        mode: active
+        resources:
+          counter: 1
+      - id: marinate
+        name: Marinate tofu
+        duration: 15
+        mode: passive
+        resources:
+          counter: 1
+      - id: sear
+        name: Sear until crisp
+        duration: 10
+        mode: active
+        resources:
+          burner: 1
+
+  - id: vegetables
+    name: Ginger vegetables
+    color: "#70c1b3"
+    maxHold: 8
+    steps:
+      - id: chop
+        name: Chop vegetables
+        duration: 10
+        mode: active
+        resources:
+          counter: 1
+      - id: stir-fry
+        name: Stir-fry with ginger
+        duration: 8
+        mode: active
+        resources:
+          burner: 1
+
+  - id: sauce
+    name: Sesame sauce
+    color: "#9b5de5"
+    maxHold: 30
+    serveOffset: -5
+    steps:
+      - id: whisk
+        name: Whisk the sauce
+        duration: 5
+        mode: active
+        resources:
+          counter: 1

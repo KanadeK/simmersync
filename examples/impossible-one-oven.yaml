@@ -1,0 +1,21 @@
+version: 1
+title: Deliberately impossible horizon
+
+resources:
+  oven:
+    capacity: 1
+    label: Oven
+
+defaults:
+  horizonMinutes: 60
+
+dishes:
+  - id: bread
+    name: Slow-baked loaf
+    steps:
+      - id: bake
+        name: Bake the loaf
+        duration: 90
+        mode: passive
+        resources:
+          oven: 1

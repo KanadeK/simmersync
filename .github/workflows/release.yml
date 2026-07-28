@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Verify tag matches package version
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          test "${GITHUB_REF_NAME}" = "v${VERSION}"
+
+      - name: Install exact dependencies
+        run: npm ci
+
+      - name: Run full quality gate
+        run: npm run check
+
+      - name: Run scheduler benchmark
+        run: npm run benchmark
+
+      - name: Build and verify release assets
+        run: |
+          npm run release:build
+          npm run release:verify
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          gh release create "${GITHUB_REF_NAME}" release/* \
+            --verify-tag \
+            --title "SimmerSync ${GITHUB_REF_NAME}" \
+            --notes-file "release/simmersync-v${VERSION}-release-notes.md"

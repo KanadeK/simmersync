@@ -1,0 +1,59 @@
+name: Scheduling bug
+description: Report a reproducible validation, scheduling, or export defect.
+title: "[bug] "
+labels: ["bug", "needs-reproduction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Remove private recipe text and reduce the plan before posting it publicly.
+
+  - type: textarea
+    id: plan
+    attributes:
+      label: Minimal plan
+      description: Paste the smallest YAML that still reproduces the issue.
+      render: yaml
+    validations:
+      required: true
+
+  - type: input
+    id: command
+    attributes:
+      label: Exact command
+      placeholder: simmersync plan plan.yaml --serve-at ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected constraint or result
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual output and exit code
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: SimmerSync and Node versions
+      placeholder: SimmerSync 0.1.0, Node 24.14.0
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Preflight
+      options:
+        - label: "`simmersync validate` passes or its failure is the bug."
+          required: true
+        - label: "The plan contains no private or copyrighted text that I cannot share."
+          required: true

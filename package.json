@@ -1,0 +1,79 @@
+{
+  "name": "simmersync",
+  "version": "0.1.0",
+  "description": "Resource-aware backward scheduling for multi-dish meals.",
+  "type": "module",
+  "bin": {
+    "simmersync": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "schema",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome lint .",
+    "test": "node --import tsx --test test/*.test.ts",
+    "test:e2e": "node --import tsx --test test/cli.e2e.test.ts",
+    "coverage": "c8 --all --include=src/**/*.ts --exclude=src/cli.ts --exclude=src/exporters/html.ts --reporter=text --reporter=json-summary --check-coverage --lines 85 --functions 85 --branches 75 node --import tsx --test test/*.test.ts",
+    "acceptance": "node scripts/acceptance.mjs",
+    "benchmark": "node scripts/benchmark.mjs",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm run coverage && npm run build && npm run acceptance",
+    "release:build": "node scripts/build-release.mjs",
+    "release:verify": "node scripts/verify-release.mjs",
+    "prepack": "npm run check"
+  },
+  "keywords": [
+    "cooking",
+    "scheduler",
+    "meal-planning",
+    "kitchen",
+    "cli",
+    "local-first",
+    "cooklang",
+    "timeline"
+  ],
+  "author": "KanadeK",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KanadeK/simmersync.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KanadeK/simmersync/issues"
+  },
+  "homepage": "https://github.com/KanadeK/simmersync#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "npm@11.9.0",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "dependencies": {
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.5",
+    "@types/node": "^24.13.3",
+    "c8": "^12.0.0",
+    "fflate": "^0.8.3",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2"
+  }
+}

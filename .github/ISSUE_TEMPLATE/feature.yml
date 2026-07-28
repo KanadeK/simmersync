@@ -1,0 +1,38 @@
+name: Focused feature
+description: Propose an execution-time kitchen scheduling improvement.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Kitchen coordination problem
+      description: Describe the concrete failure in current scheduling terms.
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Minimal example
+      description: Show a small plan or timeline where the feature matters.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired deterministic behavior
+      description: Explain the expected constraints and output without prescribing an interface.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: "This concerns execution-time coordination, not recipe scraping or meal discovery."
+          required: true
+        - label: "The proposal can work without a mandatory account, cloud service, or AI model."
+          required: true

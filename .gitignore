@@ -1,0 +1,9 @@
+node_modules/
+.npm-cache/
+dist/
+coverage/
+release/
+simmersync-output/
+examples/generated/
+*.log
+.DS_Store
